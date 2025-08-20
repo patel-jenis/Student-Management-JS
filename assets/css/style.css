@@ -13,7 +13,6 @@ h1 {
     padding: 30px;
     background-color: #ADD9E6;
     border: 2px solid rgb(131, 130, 130);
-    /* box-shadow: rgb(207, 207, 209) -3px -3px 6px 0px inset, rgba(255, 255, 255, 0.5) 3px 3px 6px 1px inset; */
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }
 
@@ -33,7 +32,7 @@ h1 {
     padding: 18px;
 }
 
-button {
+.op-btn {
     align-items: center;
     background-color: #FCFCFD;
     border-radius: 4px;
@@ -46,16 +45,43 @@ button {
     transition: all 0.2s linear;
 }
 
-button:focus {
+.op-btn:focus {
     box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
-button:hover {
+.op-btn:hover {
     box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
     transform: translateY(-2px);
 }
 
-button:active {
+.op-btn:active {
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
+}
+
+.container-main {
+    padding: 30px;
+    background-color: #ADD9E6;
+    border: 2px solid rgb(131, 130, 130);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    height: calc(100vh - 160px);
+}
+
+.inner-box {
+    height: 100%;
+    background-color: white;
+    border: 2px solid rgb(131, 130, 130);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    overflow: scroll;
+}
+
+table {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.delete-btn {
+    font-size: 22px;
+    border: none;
+    background-color: transparent;
+    color: rgb(149, 33, 33);
 }

@@ -1,0 +1,14 @@
+@media (max-width: 1200px) {
+    .form-select {
+        width: 30%;
+    }
+}
+
+@media (max-width: 400px) {
+    .container-main {
+        padding: 15px;
+    }
+    .inner-box {
+        padding: 10px;
+    }
+}

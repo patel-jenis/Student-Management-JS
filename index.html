@@ -6,22 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <!-- Bootsrap CSS -->
     <link rel="stylesheet" href="./assets/css/bootsrap.css">
     <!-- Style CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- Media CSS -->
+    <link rel="stylesheet" href="./assets/css/media.css">
 </head>
 
 <body>
 
     <h1>Student Management System</h1>
 
-    <section class="mt-5 ps-3 pe-3">
+    <section class="mt-5 mb-4 px-sm-3 px-0">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-4">
+            <div class="row g-5">
+                <div class="col-xl-4 col-12">
                     <div class="outer-box">
-                        <h3 class="text-center fw-semibold">Manage Students</h3>
+                        <h3 class="text-center fw-semibold mt-3 mb-2">Manage Students</h3>
                         <div class="mt-5 form-details">
                             <div class="mb-4">
                                 <label for="grId" class="form-label">GR ID : </label>
@@ -44,7 +48,7 @@
                                     <option value="3">AI / ML </option>
                                 </select>
                             </div>
-                            <div class="mb-4">
+                            <div class="mb-5">
                                 <label for="gender" class="form-label">Gender : </label>
                                 <label for="male">
                                     <input type="radio" name="gender" id="male" class="mx-2 form-check-input"
@@ -56,9 +60,30 @@
                                 </label>
                             </div>
                             <div class="d-flex gap-3 justify-content-center btn-box">
-                                <button id="submit-btn">Insert</button>
-                                <button id="clr">Clear</button>
+                                <button class="op-btn" id="submit-btn">Insert</button>
+                                <button class="op-btn" id="clr">Clear</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-12">
+                    <div class="container-main">
+                        <div class="inner-box">
+                            <table class="table text-center table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">GR_ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Course</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Opration</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="result">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -67,20 +92,117 @@
     </section>
 
     <script src="./assets/js/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function () {
-            let grid = document.getElementById("grId");
-            let name = document.getElementById("name");
-            let age = document.getElementById("age");
-            let course = document.getElementById("course");
-            let gender = document.querySelector('input[name="gender"]:checked');
 
+        let input1 = document.getElementById("grId");
+        let input2 = document.getElementById("name");
+        let input3 = document.getElementById("course");
+        let input4 = document.getElementById("age");
+        let students = [];
+
+        function getCourse(course) {
+            switch (course) {
+                case "1":
+                    return "Full Stack Development";
+                case "2":
+                    return "UI / UX Design";
+                case "3":
+                    return "AI / ML";
+            }
+        }
+
+        function clearData() {
+            input1.value = "";
+            input2.value = "";
+            input3.value = "";
+            input4.value = "";
+            document.getElementById("male").checked = true;
+        }
+
+        class StudentManager {
+            showStudent() {
+                document.getElementById("result").innerHTML = "";
+
+                students.forEach(data => {
+                    document.getElementById("result").innerHTML += `
+                        <tr>
+                            <td class="align-middle">${data.grid}</td>
+                            <td class="align-middle">${data.name}</td>
+                            <td class="align-middle">${getCourse(data.course)}</td>
+                            <td class="align-middle">${data.age}</td>
+                            <td class="align-middle">${data.gender}</td>
+                            <td class="align-middle"><button class="delete-btn"><i class="ri-delete-bin-line trash"></i></button></td>
+                        </tr>
+                    `;
+                })
+            }
+        }
+
+        class Student {
+            constructor(grid, name, course, age, gender) {
+                this.grid = grid;
+                this.name = name;
+                this.course = course;
+                this.age = age;
+                this.gender = gender;
+            }
+        }
+
+        $(document).ready(function () {
             document.getElementById("clr").addEventListener("click", () => {
-                grid.value = "";
-                name.value = "";
-                age.value = "";
-                course.value = "";
-                document.getElementById("male").checked = true;
+                clearData();
+            })
+
+            document.getElementById("submit-btn").addEventListener("click", () => {
+                let grid = input1.value;
+                let name = input2.value;
+                let course = input3.value;
+                let age = input4.value;
+                let gender = document.querySelector('input[name="gender"]:checked').value;
+
+                if (grid.trim() === "" || name.trim() === "" || course.trim() === "" || age.trim() === "" || gender.trim() === "") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Please Fill All Field",
+                    });
+                    return;
+                }
+
+                if (grid.length < 2 || grid.length > 4) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "GR ID must be between 2 and 4 characters!",
+                    });
+                    return;
+                }
+
+                const exists = students.some(stu => stu.grid === grid);
+                if (exists) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "This GR ID already exists!",
+                    });
+                    return;
+                }
+
+                if (grid && name && course && age && gender) {
+                    const stu = new Student(grid, name, course, age, gender);
+                    const stuManger = new StudentManager();
+
+                    students.push(stu);
+
+                    stuManger.showStudent();
+
+                    clearData();
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Please Fill All Field",
+                    });
+                }
+
             })
         })
     </script>
