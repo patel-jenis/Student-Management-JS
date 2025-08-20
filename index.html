@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Bootsrap CSS -->
+    <link rel="stylesheet" href="./assets/css/bootsrap.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <h1>Student Management System</h1>
+
+    <section class="mt-5 ps-3 pe-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <div class="outer-box">
+                        <h3 class="text-center fw-semibold">Manage Students</h3>
+                        <div class="mt-5 form-details">
+                            <div class="mb-4">
+                                <label for="grId" class="form-label">GR ID : </label>
+                                <input type="number" class="form-control" id="grId">
+                            </div>
+                            <div class="mb-4">
+                                <label for="name" class="form-label">Name :</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="mb-4">
+                                <label for="age" class="form-label">Age : </label>
+                                <input type="number" class="form-control" id="age">
+                            </div>
+                            <div class="mb-4 d-flex align-items-center gap-3">
+                                <label for="course" class="form-label m-0">Course : </label>
+                                <select class="form-select" id="course">
+                                    <option value="">Select Course</option>
+                                    <option value="1">Full Stack Developement</option>
+                                    <option value="2">UI / UX DESIGN</option>
+                                    <option value="3">AI / ML </option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="gender" class="form-label">Gender : </label>
+                                <label for="male">
+                                    <input type="radio" name="gender" id="male" class="mx-2 form-check-input"
+                                        value="Male" checked>Male
+                                </label>
+                                <label for="female">
+                                    <input type="radio" name="gender" id="female" class="mx-2 form-check-input"
+                                        value="Female">Female
+                                </label>
+                            </div>
+                            <div class="d-flex gap-3 justify-content-center btn-box">
+                                <button id="submit-btn">Insert</button>
+                                <button id="clr">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="./assets/js/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            let grid = document.getElementById("grId");
+            let name = document.getElementById("name");
+            let age = document.getElementById("age");
+            let course = document.getElementById("course");
+            let gender = document.querySelector('input[name="gender"]:checked');
+
+            document.getElementById("clr").addEventListener("click", () => {
+                grid.value = "";
+                name.value = "";
+                age.value = "";
+                course.value = "";
+                document.getElementById("male").checked = true;
+            })
+        })
+    </script>
+</body>
+
+</html>
