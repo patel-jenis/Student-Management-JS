@@ -27,42 +27,44 @@
                     <div class="outer-box">
                         <h3 class="text-center fw-semibold mt-3 mb-2">Manage Students</h3>
                         <div class="mt-5 form-details">
-                            <div class="mb-4">
-                                <label for="grId" class="form-label">GR ID : </label>
-                                <input type="number" class="form-control" id="grId">
-                            </div>
-                            <div class="mb-4">
-                                <label for="name" class="form-label">Name :</label>
-                                <input type="text" class="form-control" id="name">
-                            </div>
-                            <div class="mb-4">
-                                <label for="age" class="form-label">Age : </label>
-                                <input type="number" class="form-control" id="age">
-                            </div>
-                            <div class="mb-4 d-flex align-items-center gap-3">
-                                <label for="course" class="form-label m-0">Course : </label>
-                                <select class="form-select" id="course">
-                                    <option value="">Select Course</option>
-                                    <option value="1">Full Stack Developement</option>
-                                    <option value="2">UI / UX DESIGN</option>
-                                    <option value="3">AI / ML </option>
-                                </select>
-                            </div>
-                            <div class="mb-5">
-                                <label for="gender" class="form-label">Gender : </label>
-                                <label for="male">
-                                    <input type="radio" name="gender" id="male" class="mx-2 form-check-input"
-                                        value="Male" checked>Male
-                                </label>
-                                <label for="female">
-                                    <input type="radio" name="gender" id="female" class="mx-2 form-check-input"
-                                        value="Female">Female
-                                </label>
-                            </div>
-                            <div class="d-flex gap-3 justify-content-center btn-box">
-                                <button class="op-btn" id="submit-btn">Insert</button>
-                                <button class="op-btn" id="clr">Clear</button>
-                            </div>
+                            <form action="">
+                                <div class="mb-4">
+                                    <label for="grId" class="form-label">GR ID : </label>
+                                    <input type="number" class="form-control" id="grId">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="name" class="form-label">Name :</label>
+                                    <input type="text" class="form-control" id="name">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="age" class="form-label">Age : </label>
+                                    <input type="number" class="form-control" id="age">
+                                </div>
+                                <div class="mb-4 d-flex align-items-center gap-3">
+                                    <label for="course" class="form-label m-0">Course : </label>
+                                    <select class="form-select" id="course">
+                                        <option value="">Select Course</option>
+                                        <option value="1">Full Stack Developement</option>
+                                        <option value="2">UI / UX DESIGN</option>
+                                        <option value="3">AI / ML </option>
+                                    </select>
+                                </div>
+                                <div class="mb-5">
+                                    <label for="gender" class="form-label">Gender : </label>
+                                    <label for="male">
+                                        <input type="radio" name="gender" id="male" class="mx-2 form-check-input"
+                                            value="Male" checked>Male
+                                    </label>
+                                    <label for="female">
+                                        <input type="radio" name="gender" id="female" class="mx-2 form-check-input"
+                                            value="Female">Female
+                                    </label>
+                                </div>
+                                <div class="d-flex gap-3 justify-content-center btn-box">
+                                    <button class="op-btn" id="submit-btn">Insert</button>
+                                    <button class="op-btn" id="clr">Clear</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -72,6 +74,7 @@
                             <table class="table text-center table-striped">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Sr_No</th>
                                         <th scope="col">GR_ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Course</th>
@@ -91,7 +94,7 @@
         </div>
     </section>
 
-    <script src="./assets/js/jquery.js"></script>
+    <!-- <script src="./assets/js/jquery.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
@@ -99,18 +102,6 @@
         let input2 = document.getElementById("name");
         let input3 = document.getElementById("course");
         let input4 = document.getElementById("age");
-        let students = [];
-
-        function getCourse(course) {
-            switch (course) {
-                case "1":
-                    return "Full Stack Development";
-                case "2":
-                    return "UI / UX Design";
-                case "3":
-                    return "AI / ML";
-            }
-        }
 
         function clearData() {
             input1.value = "";
@@ -121,40 +112,13 @@
         }
 
         class StudentManager {
-            showStudent() {
-                document.getElementById("result").innerHTML = "";
-
-                students.forEach(data => {
-                    document.getElementById("result").innerHTML += `
-                        <tr>
-                            <td class="align-middle">${data.grid}</td>
-                            <td class="align-middle">${data.name}</td>
-                            <td class="align-middle">${getCourse(data.course)}</td>
-                            <td class="align-middle">${data.age}</td>
-                            <td class="align-middle">${data.gender}</td>
-                            <td class="align-middle"><button class="delete-btn"><i class="ri-delete-bin-line trash"></i></button></td>
-                        </tr>
-                    `;
-                })
+            constructor() {
+                this.students = [];
             }
-        }
 
-        class Student {
-            constructor(grid, name, course, age, gender) {
-                this.grid = grid;
-                this.name = name;
-                this.course = course;
-                this.age = age;
-                this.gender = gender;
-            }
-        }
+            addStudent(e) {
+                e.preventDefault();
 
-        $(document).ready(function () {
-            document.getElementById("clr").addEventListener("click", () => {
-                clearData();
-            })
-
-            document.getElementById("submit-btn").addEventListener("click", () => {
                 let grid = input1.value;
                 let name = input2.value;
                 let course = input3.value;
@@ -177,7 +141,7 @@
                     return;
                 }
 
-                const exists = students.some(stu => stu.grid === grid);
+                const exists = this.students.some(stu => stu.grid === grid);
                 if (exists) {
                     Swal.fire({
                         icon: "error",
@@ -188,12 +152,13 @@
 
                 if (grid && name && course && age && gender) {
                     const stu = new Student(grid, name, course, age, gender);
-                    const stuManger = new StudentManager();
 
-                    students.push(stu);
-
-                    stuManger.showStudent();
-
+                    this.students.push(stu);
+                    Swal.fire({
+                        title: "Student Added",
+                        icon: "success",
+                    });
+                    this.showStudent();
                     clearData();
 
                 } else {
@@ -202,7 +167,63 @@
                         title: "Please Fill All Field",
                     });
                 }
+            }
 
+            showStudent() {
+                document.getElementById("result").innerHTML = "";
+
+                this.students.forEach((data, idx) => {
+                    document.getElementById("result").innerHTML += `
+                        <tr>
+                            <td class="align-middle">${idx + 1}</td>
+                            <td class="align-middle">${data.grid}</td>
+                            <td class="align-middle">${data.name}</td>
+                            <td class="align-middle">${this.getCourse(data.course)}</td>
+                            <td class="align-middle">${data.age}</td>
+                            <td class="align-middle">${data.gender}</td>
+                            <td class="align-middle"><button class="delete-btn" onclick="stuManager.deleteStudent(${idx})"><i class="ri-delete-bin-line trash"></i></button></td>
+                        </tr>
+                    `;
+                })
+            }
+
+            deleteStudent(idx) {
+                this.students.splice(idx, 1);
+                this.showStudent();
+            }
+
+            updateStudent() { }
+
+            getCourse(course) {
+                switch (course) {
+                    case "1":
+                        return "Full Stack Development";
+                    case "2":
+                        return "UI / UX Design";
+                    case "3":
+                        return "AI / ML";
+                }
+            }
+        }
+
+        class Student {
+            constructor(grid, name, course, age, gender) {
+                this.grid = grid;
+                this.name = name;
+                this.course = course;
+                this.age = age;
+                this.gender = gender;
+            }
+        }
+
+        const stuManager = new StudentManager();
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("clr").addEventListener("click", () => {
+                clearData();
+            })
+
+            document.getElementById("submit-btn").addEventListener("click", function (e) {
+                stuManager.addStudent(e);
             })
         })
     </script>
