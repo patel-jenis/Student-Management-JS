@@ -194,8 +194,10 @@
                             <td class="align-middle">${data.age}</td>
                             <td class="align-middle">${data.gender}</td>
                             <td class="align-middle">
-                                <button class="update-btn" onclick="stuManager.updateStudent(${idx})"><i class="ri-edit-line"></i></button>
-                                <button class="delete-btn" onclick="stuManager.deleteStudent(${idx})"><i class="ri-delete-bin-line trash"></i></button>
+                                <div class="d-flex justify-content-center gap-2 align-items-center">
+                                    <button class="update-btn" onclick="stuManager.updateStudent(${idx})"><i class="ri-edit-line"></i></button>
+                                    <button class="delete-btn" onclick="stuManager.deleteStudent(${idx})"><i class="ri-delete-bin-line trash"></i></button>
+                                </div>
                             </td>
                         </tr>
                     `;
